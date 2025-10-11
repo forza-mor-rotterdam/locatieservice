@@ -8,7 +8,9 @@ FROM dunglas/frankenphp:1-php8.2-bookworm
 RUN install-php-extensions \
     intl \
     opcache \
-    zip
+    zip \
+    pgsql \
+    pdo_pgsql
 
 ENV SERVER_NAME=localhost
 ENV SERVER_PORT=:80
