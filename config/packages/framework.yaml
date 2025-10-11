@@ -8,6 +8,13 @@ framework:
     #esi: true
     #fragments: true
 
+    http_client:
+        scoped_clients:
+            pdok.client:
+                base_uri: '%env(PDOK_URL)%'
+            mor_core.client:
+                base_uri: '%env(MORCORE_URL)%'
+
 when@test:
     framework:
         test: true
