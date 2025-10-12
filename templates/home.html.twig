@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Woonplaatsen, wijken en buurten in Rotterdam{% endblock %}
+
+{% block body %}
+    <h1>Woonplaatsen, wijken en buurten in Rotterdam</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Woonplaats</th>
+                <th>Wijk</th>
+                <th>Buurt</th>
+                <th class="check">In <a href="https://api.pdok.nl/bzk/locatieserver/search/v3_1/ui/">PDOK</a></th>
+                <th class="check">In <a href="https://mor-core.forzamor.nl">Mor Core</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for woonplaats in woonplaatsen %}
+                <tr>
+                    <td class="group-1" colspan="3">
+                        {{ woonplaats.naam }}<br>
+                        <code>{{ woonplaats.code }}</code>
+                    </td>
+                    <td class="check">{{ woonplaats.inPdok ? '✅' : '⚠️' }}</td>
+                    <td class="check">{{ woonplaats.inMorCore ? '✅' : '⚠️' }}</td>
+                </tr>
+                {% for wijk in woonplaats.wijken %}
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="group-2" colspan="2">
+                            {{ wijk.naam }}<br>
+                            <code>{{ wijk.code }}</code>
+                        </td>
+                        <td class="check">{{ woonplaats.inPdok ? '✅' : '⚠️' }}</td>
+                        <td class="check">{{ woonplaats.inMorCore ? '✅' : '⚠️' }}</td>
+                    </tr>
+                    {% for buurt in wijk.buurten %}
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>
+                                {{ buurt.naam }}<br>
+                                <code>{{ buurt.code }}</code>
+                            </td>
+                            <td class="check">{{ buurt.inPdok ? '✅' : '⚠️' }}</td>
+                            <td class="check">{{ buurt.inMorCore ? '✅' : '⚠️' }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
