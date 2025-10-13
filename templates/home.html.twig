@@ -18,32 +18,74 @@
             {% for woonplaats in woonplaatsen %}
                 <tr>
                     <td class="group-1" colspan="3">
-                        {{ woonplaats.naam }}<br>
+                        {{ woonplaats.naam }}
+                        <abbr title="{{ woonplaats.uuid }}">ℹ️</abbr>
+                        <br>
                         <code>{{ woonplaats.code }}</code>
                     </td>
-                    <td class="check">{{ woonplaats.inPdok ? '✅' : '⚠️' }}</td>
-                    <td class="check">{{ woonplaats.inMorCore ? '✅' : '⚠️' }}</td>
+                    <td class="check">
+                        {% if woonplaats.inPdok %}
+                            <abbr title="{{ woonplaats.lastSeenInPdok|date('d-m-Y H:i') }}">✅</abbr>
+                        {% else %}
+                            ⚠️
+                        {% endif %}
+                    </td>
+                    <td class="check">
+                        {% if woonplaats.inMorCore %}
+                            <abbr title="{{ woonplaats.lastSeenInMorCore|date('d-m-Y H:i') }}">✅</abbr>
+                        {% else %}
+                            ⚠️
+                        {% endif %}
+                    </td>
                 </tr>
                 {% for wijk in woonplaats.wijken %}
                     <tr>
                         <td>&nbsp;</td>
                         <td class="group-2" colspan="2">
-                            {{ wijk.naam }}<br>
+                            {{ wijk.naam }}
+                            <abbr title="{{ wijk.uuid }}">ℹ️</abbr>
+                            <br>
                             <code>{{ wijk.code }}</code>
                         </td>
-                        <td class="check">{{ woonplaats.inPdok ? '✅' : '⚠️' }}</td>
-                        <td class="check">{{ woonplaats.inMorCore ? '✅' : '⚠️' }}</td>
+                        <td class="check">
+                            {% if wijk.inPdok %}
+                                <abbr title="{{ wijk.lastSeenInPdok|date('d-m-Y H:i') }}">✅</abbr>
+                            {% else %}
+                                ⚠️
+                            {% endif %}
+                        </td>
+                        <td class="check">
+                            {% if wijk.inMorCore %}
+                                <abbr title="{{ wijk.lastSeenInMorCore|date('d-m-Y H:i') }}">✅</abbr>
+                            {% else %}
+                                ⚠️
+                            {% endif %}
+                        </td>
                     </tr>
                     {% for buurt in wijk.buurten %}
                         <tr>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>
-                                {{ buurt.naam }}<br>
+                                {{ buurt.naam }}
+                                <abbr title="{{ buurt.uuid }}">ℹ️</abbr>
+                                <br>
                                 <code>{{ buurt.code }}</code>
                             </td>
-                            <td class="check">{{ buurt.inPdok ? '✅' : '⚠️' }}</td>
-                            <td class="check">{{ buurt.inMorCore ? '✅' : '⚠️' }}</td>
+                            <td class="check">
+                                {% if buurt.inPdok %}
+                                    <abbr title="{{ buurt.lastSeenInPdok|date('d-m-Y H:i') }}">✅</abbr>
+                                {% else %}
+                                    ⚠️
+                                {% endif %}
+                            </td>
+                            <td class="check">
+                                {% if buurt.inMorCore %}
+                                    <abbr title="{{ buurt.lastSeenInMorCore|date('d-m-Y H:i') }}">✅</abbr>
+                                {% else %}
+                                    ⚠️
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 {% endfor %}
