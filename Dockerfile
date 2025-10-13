@@ -17,6 +17,10 @@ ENV SERVER_PORT=:80
 ENV FRANKENPHP_CONFIG="worker ./public/index.php"
 ENV APP_RUNTIME="Runtime\\FrankenPhpSymfony\\Runtime"
 
+# https://github.com/php/frankenphp/blob/main/caddy/frankenphp/Caddyfile
+ENV CADDY_GLOBAL_OPTIONS="admin :2019 \n metrics { \n per_host \n }"
+ENV CADDY_SERVER_EXTRA_DIRECTIVES=""
+
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 WORKDIR /app
