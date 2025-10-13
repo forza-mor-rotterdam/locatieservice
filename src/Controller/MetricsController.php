@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MetricsController extends AbstractController
 {
-    #[Route('/metrics')]
+    #[Route('/app/metrics')]
     public function __invoke(Request $request, WoonplaatsRepository $woonplaatsRepository, WijkRepository $wijkRepository, BuurtRepository $buurtRepository, ImportActionRepository $importActionRepository): Response
     {
         $metrics = [];
