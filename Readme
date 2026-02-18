@@ -46,7 +46,7 @@ To only run the docker container use:
 ```
 
 This will start a webserver.
-You can view the website on http://locatieservice.mor.local:8011
+You can view the website on http://locatieservice.mor.local:8010
 
 ### Initial migration
 
