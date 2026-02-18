@@ -1,0 +1,43 @@
+version: '3'
+services:
+  locatieservice_app:
+    build: .
+    env_file:
+      - .env.local
+    ports:
+      - 8011:80
+    volumes:
+      - ./*:/*
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - locatieservice_network
+      - mor_bridge_network
+    restart: always
+
+  database:
+    image: postgis/postgis:16-3.4
+    shm_size: '1024m'
+    ports:
+      - "5432"
+    env_file:
+      - .env.local
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres-data-16:/var/lib/postgresql/data
+    networks:
+      - locatieservice_network
+
+volumes:
+  postgres-data-16:
+
+networks:
+  locatieservice_network:
+    external: true
+  mor_bridge_network:
+    external: true

@@ -1,0 +1,71 @@
+# MOR Locatie Service
+
+Deze applicatie maakt inzichtelijk waar verschillen in woonplaatsen, wijken en buurten zitten tussen huidige landelijke data(pdok) en historische MOR meldingen data. Daarnaast worden de woonplaatsen, wijken en buurten uit de twee bornnen pdok en MOR meldingen gecombineerd als bron en voor andere MOR applicatie ontsloten met deze applicatie. 
+
+## Tech Stack
+
+[Symfony](https://symfony.com/)
+
+## Get Started 🚀
+
+To get started, install [Docker](https://www.docker.com/)
+
+### Start MOR core application
+
+https://github.com/forza-mor-rotterdam/mor-core
+
+### Create local dns entry
+
+Add '127.0.0.1 locatieservice.mor.local' to your hosts file
+
+### create docker networks
+
+```bash
+    docker network create locatieservice_network
+    docker network create mor_bridge_network
+```
+
+### Start application
+
+Create .env file with the content of .env.local:
+```bash
+    cp ./.env.dev .env.local
+```
+
+Build and run container:
+
+```bash
+    docker compose build
+    docker compose up
+```
+
+To only run the docker container use:
+
+```bash
+    docker compose up
+```
+
+This will start a webserver.
+You can view the website on http://locatieservice.mor.local:8011
+
+### Initial migration
+
+```bash
+    docker compose up
+    docker compose exec locatieservice_app php /app/bin/console doctrine:migrations:migrate
+```
+
+
+### Update pdok data
+
+```bash
+    docker compose up
+    docker compose exec locatieservice_app php /app/bin/console app:import:pdok
+```
+
+### Update MOR-Core data
+
+```bash
+    docker compose up
+    docker compose exec locatieservice_app php /app/bin/console app:import:morcore
+```
