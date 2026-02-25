@@ -10,39 +10,37 @@ Deze applicatie maakt inzichtelijk waar verschillen in woonplaatsen, wijken en b
 
 To get started, install [Docker](https://www.docker.com/)
 
-### Start MOR core application
+### Clone application code
 
-https://github.com/forza-mor-rotterdam/mor-core
+```
+git clone git@github.com:forza-mor-rotterdam/locatieservice.git
+```
 
 ### Create local dns entry
 
+In a new console window/tab, go to [project-root]/ 
 Add '127.0.0.1 locatieservice.mor.local' to your hosts file
 
-### create docker networks
+### Create docker networks
 
 ```bash
-    docker network create locatieservice_network
-    docker network create mor_bridge_network
+docker network create locatieservice_network
+docker network create mor_bridge_network
+```
+
+### Create env variables
+
+Create ./.env.local file with the content of .env.dev:
+```bash
+cp ./.env.dev .env.local
 ```
 
 ### Start application
 
-Create .env file with the content of .env.local:
-```bash
-    cp ./.env.dev .env.local
-```
-
 Build and run container:
 
 ```bash
-    docker compose build
-    docker compose up
-```
-
-To only run the docker container use:
-
-```bash
-    docker compose up
+docker compose up
 ```
 
 This will start a webserver.
@@ -50,22 +48,23 @@ You can view the website on http://locatieservice.mor.local:8010
 
 ### Initial migration
 
+In a new console window/tab, go to [project-root]/
 ```bash
-    docker compose up
-    docker compose exec locatieservice_app php /app/bin/console doctrine:migrations:migrate
+docker compose exec locatieservice_app php /app/bin/console doctrine:migrations:migrate
 ```
 
 
 ### Update pdok data
 
+In a new console window/tab, go to [project-root]/
 ```bash
-    docker compose up
-    docker compose exec locatieservice_app php /app/bin/console app:import:pdok
+docker compose exec locatieservice_app php /app/bin/console app:import:pdok
 ```
 
 ### Update MOR-Core data
 
+Start MOR-Core application https://github.com/forza-mor-rotterdam/mor-core  
+In a new console window/tab, go to [project-root]/
 ```bash
-    docker compose up
-    docker compose exec locatieservice_app php /app/bin/console app:import:morcore
+docker compose exec locatieservice_app php /app/bin/console app:import:morcore
 ```
